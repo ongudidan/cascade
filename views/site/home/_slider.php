@@ -1,3 +1,7 @@
+<?php
+
+use yii\helpers\Url;
+?>
 <div id="rev_slider_5_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="logistics"
     data-source="gallery"
     style="margin:0px auto;background:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
@@ -29,16 +33,20 @@
                 </div>
 
                 <!-- LAYER NR. 2 -->
-                <div class="tp-caption rev-btn " id="slide-8-layer-2" data-x="['left','left','left','center']"
-                    data-hoffset="['0','41','47','7']" data-y="['top','top','top','top']"
-                    data-voffset="['345','372','378','375']" data-width="none" data-height="none"
-                    data-whitespace="nowrap" data-type="button" data-responsive_offset="on" data-responsive="off"
-                    data-frames='[{"delay":640,"speed":1120,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"0","ease":"Linear.easeNone","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgb(255,255,255);bg:transparent;bc:rgb(255,255,255);"}]'
-                    data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[12,12,12,12]"
-                    data-paddingright="[35,35,35,35]" data-paddingbottom="[12,12,12,12]"
-                    data-paddingleft="[35,35,35,35]"
-                    style="z-index: 6; white-space: nowrap; font-size: 14px; line-height: 17px; font-weight: 500; color: rgba(255,255,255,1); letter-spacing: px;font-family:Poppins;background-color:rgb(229,57,53);border-color:rgb(229,57,53);border-style:solid;border-width:2px 2px 2px 2px;border-radius:30px 30px 30px 30px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
-                    Contact Us </div>
+                <a href="<?= Url::to('/site/contact') ?>" target="_blank">
+                    <div class="tp-caption rev-btn" id="slide-8-layer-2" data-x="['left','left','left','center']"
+                        data-hoffset="['0','41','47','7']" data-y="['top','top','top','top']"
+                        data-voffset="['345','372','378','375']" data-width="none" data-height="none"
+                        data-whitespace="nowrap" data-type="button" data-responsive_offset="on" data-responsive="off"
+                        data-frames='[{"delay":640,"speed":1120,"frame":"0","from":"y:50px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"0","ease":"Linear.easeNone","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgb(255,255,255);bg:transparent;bc:rgb(255,255,255);"}]'
+                        data-textAlign="['inherit','inherit','inherit','inherit']" data-paddingtop="[12,12,12,12]"
+                        data-paddingright="[35,35,35,35]" data-paddingbottom="[12,12,12,12]"
+                        data-paddingleft="[35,35,35,35]"
+                        style="z-index: 6; white-space: nowrap; font-size: 14px; line-height: 17px; font-weight: 500; color: rgba(255,255,255,1); letter-spacing: px;font-family:Poppins;background-color:rgb(229,57,53);border-color:rgb(229,57,53);border-style:solid;border-width:2px 2px 2px 2px;border-radius:30px 30px 30px 30px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer;">
+                        Contact Us
+                    </div>
+                </a>
+
             </li>
         </ul>
         <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>

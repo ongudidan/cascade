@@ -5,15 +5,15 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "about".
+ * This is the model class for table "help_desk".
  *
  * @property string $id
+ * @property string|null $image
  * @property string|null $description
- * @property string|null $banner_image
  * @property string|null $created_at
  * @property string|null $updated_at
  */
-class About extends \yii\db\ActiveRecord
+class HelpDesk extends \yii\db\ActiveRecord
 {
     public $imageFile;
 
@@ -22,7 +22,7 @@ class About extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'about';
+        return 'help_desk';
     }
 
     /**
@@ -32,8 +32,8 @@ class About extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['description', 'meta_description', 'meta_keywords'], 'string'],
-            [['id', 'banner_image', 'created_at', 'updated_at'], 'string', 'max' => 255],
+            [['description'], 'string'],
+            [['id', 'image', 'created_at', 'updated_at'], 'string', 'max' => 255],
             [['id'], 'unique'],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'], // Image validation
 
@@ -47,8 +47,8 @@ class About extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'image' => 'Image',
             'description' => 'Description',
-            'banner_image' => 'Banner Image',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

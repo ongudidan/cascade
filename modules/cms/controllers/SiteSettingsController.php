@@ -9,8 +9,10 @@ use app\models\Background;
 use app\models\Careers;
 use app\models\Contact;
 use app\models\General;
+use app\models\HelpDesk;
 use app\models\Mission;
 use app\models\Vision;
+use app\models\WhyUs;
 use Yii;
 
 class SiteSettingsController extends \yii\web\Controller
@@ -207,6 +209,68 @@ class SiteSettingsController extends \yii\web\Controller
         }
 
         return $this->renderAjax('careers-form', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionWhyUsForm()
+    {
+
+        // Fetch or create why-us model
+        $model = WhyUs::find()->one() ?? new WhyUs();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $uploadedFile = Upload::upload($model, 'imageFile', 'image');
+
+                $model->id = IdGenerator::generateUniqueId();
+
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'why-us saved successfully.');
+
+                    return $this->redirect(['index', 'id' => $model->id]);
+                } else {
+                    // Capture model errors and set a flash message
+                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                    Yii::$app->session->setFlash('error', 'Failed to save the why-us. Errors: <br>' . $errors);
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('why-us-form', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionHelpDeskForm()
+    {
+
+        // Fetch or create help-desk model
+        $model = HelpDesk::find()->one() ?? new HelpDesk();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $uploadedFile = Upload::upload($model, 'imageFile', 'image');
+
+                $model->id = IdGenerator::generateUniqueId();
+
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'help-desk saved successfully.');
+
+                    return $this->redirect(['index', 'id' => $model->id]);
+                } else {
+                    // Capture model errors and set a flash message
+                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                    Yii::$app->session->setFlash('error', 'Failed to save the help-desk. Errors: <br>' . $errors);
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('help-desk-form', [
             'model' => $model,
         ]);
     }

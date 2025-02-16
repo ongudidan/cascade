@@ -15,7 +15,7 @@ class m240925_011459_create_app_tables extends Migration
         // Create user table
         $this->createTable('{{%user}}', [
             'id' => $this->string()->notNull()->unique(), // Custom string ID
-            'username' => $this->string()->notNull()->unique(),
+            'username' => $this->string()->defaultValue(null)->unique(),
             'verification_token' => $this->string()->defaultValue(null),
             'auth_key' => $this->string()->notNull(),
             'password_hash' => $this->string()->notNull(),
@@ -75,10 +75,23 @@ class m240925_011459_create_app_tables extends Migration
             'id' => $this->string()->notNull()->unique(), // Custom string ID
             'title' => $this->string()->notNull(),
             'image' => $this->string()->defaultValue(null),
+            'icon' => $this->string()->defaultValue(null),
             'description' => $this->text()->notNull(),
+            'meta_description' => $this->text()->defaultValue(null),
+            'meta_keywords' => $this->text()->defaultValue(null),
             'status' => $this->string()->defaultValue(10),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
+        ]);
+
+        // Create service_image table
+        $this->createTable('{{%service_image}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'service_id' => $this->string()->defaultValue(null),
+            'created_at' => $this->string()->defaultValue(null),
+            'updated_at' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[service_id]]) REFERENCES {{%service}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
         ]);
 
         // Create about table
@@ -86,6 +99,8 @@ class m240925_011459_create_app_tables extends Migration
             'id' => $this->string()->notNull()->unique(), // Custom string ID
             'description' => $this->text()->defaultValue(null),
             'banner_image' => $this->string()->defaultValue(null),
+            'meta_description' => $this->text()->defaultValue(null),
+            'meta_keywords' => $this->text()->defaultValue(null),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
         ]);
@@ -99,32 +114,8 @@ class m240925_011459_create_app_tables extends Migration
             'phone2' => $this->string()->defaultValue(null),
             'address' => $this->string()->defaultValue(null),
             'email' => $this->string()->defaultValue(null),
-            'created_at' => $this->string()->defaultValue(null),
-            'updated_at' => $this->string()->defaultValue(null),
-        ]);
-
-        // Create background table
-        $this->createTable('{{%background}}', [
-            'id' => $this->string()->notNull()->unique(), // Custom string ID
-            'banner_image' => $this->string()->defaultValue(null),
-
-            'description' => $this->text()->defaultValue(null),
-            'created_at' => $this->string()->defaultValue(null),
-            'updated_at' => $this->string()->defaultValue(null),
-        ]);
-
-        // Create vision table
-        $this->createTable('{{%vision}}', [
-            'id' => $this->string()->notNull()->unique(), // Custom string ID
-            'description' => $this->text()->defaultValue(null),
-            'created_at' => $this->string()->defaultValue(null),
-            'updated_at' => $this->string()->defaultValue(null),
-        ]);
-
-        // Create mission table
-        $this->createTable('{{%mission}}', [
-            'id' => $this->string()->notNull()->unique(), // Custom string ID
-            'description' => $this->text()->defaultValue(null),
+            'meta_description' => $this->text()->defaultValue(null),
+            'meta_keywords' => $this->text()->defaultValue(null),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
         ]);
@@ -132,7 +123,7 @@ class m240925_011459_create_app_tables extends Migration
         // Create help_desk table
         $this->createTable('{{%help_desk}}', [
             'id' => $this->string()->notNull()->unique(), // Custom string ID
-            'banner_image' => $this->string()->defaultValue(null),
+            'image' => $this->string()->defaultValue(null),
             'description' => $this->text()->defaultValue(null),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
@@ -144,6 +135,17 @@ class m240925_011459_create_app_tables extends Migration
             'logo' => $this->text()->defaultValue(null),
             'favicon' => $this->text()->defaultValue(null),
             'home_banner' => $this->text()->defaultValue(null),
+            'meta_description' => $this->text()->defaultValue(null),
+            'meta_keywords' => $this->text()->defaultValue(null),
+            'created_at' => $this->string()->defaultValue(null),
+            'updated_at' => $this->string()->defaultValue(null),
+        ]);
+
+        // Create home_banner_image table
+        $this->createTable('{{%home_banner}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'image' => $this->string()->defaultValue(null),
+            'description' => $this->text()->defaultValue(null),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
         ]);
@@ -152,14 +154,27 @@ class m240925_011459_create_app_tables extends Migration
         $this->createTable('{{%careers}}', [
             'id' => $this->string()->notNull()->unique(), // Custom string ID
             'description' => $this->text()->defaultValue(null),
+            'meta_description' => $this->text()->defaultValue(null),
+            'meta_keywords' => $this->text()->defaultValue(null),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
         ]);
 
-        // Create job_vacancy table
-        $this->createTable('{{%job_vacancy}}', [
+        // Create why_us table
+        $this->createTable('{{%why_us}}', [
             'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'image' => $this->string()->defaultValue(null),
             'description' => $this->text()->defaultValue(null),
+            'created_at' => $this->string()->defaultValue(null),
+            'updated_at' => $this->string()->defaultValue(null),
+        ]);
+
+        // Create emails table
+        $this->createTable('{{%email}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'name' => $this->string()->defaultValue(null),
+            'email' => $this->string()->defaultValue(null),
+            'message' => $this->text()->defaultValue(null),
             'created_at' => $this->string()->defaultValue(null),
             'updated_at' => $this->string()->defaultValue(null),
         ]);

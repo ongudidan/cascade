@@ -13,7 +13,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\General;
+use app\models\HelpDesk;
 use app\models\Service;
+use app\models\WhyUs;
 
 class SiteController extends Controller
 {
@@ -67,12 +69,22 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $generalModel = General::find()->one();
+        $aboutModel = About::find()->one();
+
         $contactModel = Contact::find()->one();
+        $whyUsModel = WhyUs::find()->one();
+        $helpDeskModel = HelpDesk::find()->one();
+
+        $serviceModel = Service::find()->all();
+
 
         return $this->render('index',[
             'generalModel'=> $generalModel,
             'contactModel' => $contactModel,
-
+            'serviceModel' => $serviceModel,
+            'whyUsModel' => $whyUsModel,
+            'helpDeskModel' => $helpDeskModel,
+            'aboutModel' => $aboutModel,
         ]);
     }
 

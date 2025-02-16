@@ -78,6 +78,7 @@ class ServiceController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $uploadedFile = Upload::upload($model, 'imageFile', 'image');
+                $uploadedIcon = Upload::upload($model, 'iconFile', 'icon');
                 $model->id = IdGenerator::generateUniqueId();
 
                 if ($model->save()) {
@@ -113,6 +114,7 @@ class ServiceController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())) {
 
             $uploadedFile = Upload::upload($model, 'imageFile', 'image');
+            $uploadedIcon = Upload::upload($model, 'iconFile', 'icon');
 
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Service updated successfully.');

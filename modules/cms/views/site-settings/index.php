@@ -19,36 +19,18 @@ $rows = [
         'edit' => Url::to(['/cms/site-settings/contact-form']),
         // 'view' => Url::to(['/cms/site-settings/view-contact']),
     ],
-    'Company Background' => [
-        'edit' => Url::to(['/cms/site-settings/background-form']),
-        // 'view' => Url::to(['/cms/site-settings/view-company-background']),
-    ],
-    'Our Vision' => [
-        'edit' => Url::to(['/cms/site-settings/vision-form']),
-        // 'view' => Url::to(['/cms/site-settings/view-vision']),
-    ],
-    'Our Mission' => [
-        'edit' => Url::to(['/cms/site-settings/mission-form']),
-        // 'view' => Url::to(['/cms/site-settings/view-mission']),
-    ],
-    'Request For Proposal' => [
-        'edit' => Url::to(['/cms/site-settings/edit-rfp']),
-        // 'view' => Url::to(['/cms/site-settings/view-rfp']),
-    ],
+  
     'Careers' => [
         'edit' => Url::to(['/cms/site-settings/careers-form']),
         // 'view' => Url::to(['/cms/site-settings/view-careers']),
     ],
-    'Job Vacancy' => [
-        'edit' => Url::to(['/cms/site-settings/edit-job-vacancy']),
-        // 'view' => Url::to(['/cms/site-settings/view-job-vacancy']),
-    ],
+
     'Why Us' => [
-        'edit' => Url::to(['/cms/site-settings/edit-why-us']),
+        'edit' => Url::to(['/cms/site-settings/why-us-form']),
         // 'view' => Url::to(['/cms/site-settings/view-why-us']),
     ],
     'Help Desk' => [
-        'edit' => Url::to(['/cms/site-settings/edit-help-desk']),
+        'edit' => Url::to(['/cms/site-settings/help-desk-form']),
         // 'view' => Url::to(['/cms/site-settings/view-help-desk']),
     ],
     'General (Logo, Favicon etc...)' => [

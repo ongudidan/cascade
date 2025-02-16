@@ -19,6 +19,8 @@ use yii\behaviors\TimestampBehavior;
 class Service extends \yii\db\ActiveRecord
 {
     public $imageFile;
+    public $iconFile;
+
 
     public function behaviors()
     {
@@ -51,10 +53,10 @@ class Service extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'title', 'description'], 'required'],
-            [['description'], 'string'],
+            [['description', 'meta_description', 'meta_keywords'], 'string'],
             [['id', 'title', 'image', 'status', 'created_at', 'updated_at'], 'string', 'max' => 255],
             [['id'], 'unique'],
-            [['imageFile'], 'file', 'extensions' => 'png, jpg, jpeg', 'skipOnEmpty' => true], // Validate file type
+            [['imageFile', 'iconFile'], 'file', 'extensions' => 'png, jpg, jpeg', 'skipOnEmpty' => true], // Validate file type
 
         ];
     }

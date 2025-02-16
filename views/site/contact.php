@@ -10,6 +10,9 @@ use yii\captcha\Captcha;
 
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['meta_description'] = $contactModel->meta_description ?? '';
+$this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 ?>
 <!-- <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -95,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <span class="d-block"><i class="fa fa-phone text-main-color margin-right-10px"
                         aria-hidden="true"></i> <?= $contactModel->phone1 ?? '' ?></span>
                 <span class="d-block sm-mb-30px"><i class="fa fa-mobile text-main-color margin-right-10px"
-                        aria-hidden="true"></i> <?= $contactModel->phone1 ?? '' ?></span>
+                        aria-hidden="true"></i> <?= $contactModel->phone2 ?? '' ?></span>
                 <h5 class="margin-top-20px">Address :</h5>
                 <span class="d-block sm-mb-30px"><i class="fa fa-map text-main-color margin-right-10px"
                         aria-hidden="true"></i> <?= $contactModel->address ?? '' ?> </span>

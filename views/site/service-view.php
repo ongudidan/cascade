@@ -6,6 +6,10 @@ $id = Yii::$app->request->get('id');
 
 $this->title = $service->title;
 
+$this->params['meta_description'] = $service->meta_description ?? '';
+$this->params['meta_keywords'] = $service->meta_keywords ?? '';
+
+
 
 ?>
 <div class="page-title">

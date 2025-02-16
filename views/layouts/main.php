@@ -21,12 +21,11 @@ $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
 $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
-$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('/web/uploads/'.$generalModel->favicon ?? '')]);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('/web/uploads/'. ($generalModel ? $generalModel->favicon : 'default-favicon.ico'))]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
-<meta name="description" content="Clearing, Forwarding, Cargo, Logistics, cfs, shipping, import cars, cars online, transport,storage,container, terminal" />
 
 <head>
     <title><?= Html::encode($this->title) ?></title>

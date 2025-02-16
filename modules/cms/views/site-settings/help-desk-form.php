@@ -22,10 +22,10 @@ use yii\widgets\Pjax;
     <?= $form->field($model, 'imageFile')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => [
-            'initialPreview' => $model->banner_image ? [Yii::getAlias('@web') . "/web/uploads/" . $model->banner_image] : [],
+            'initialPreview' => $model->image ? [Yii::getAlias('@web') . "/web/uploads/" . $model->image] : [],
             'initialPreviewAsData' => true, // Show image preview
             'initialPreviewConfig' => [
-                ['caption' => $model->banner_image, 'key' => 1]
+                ['caption' => $model->image, 'key' => 1]
             ],
             'previewFileType' => 'image',
             'showUpload' => false, // Hide upload button since handling in controller
@@ -33,22 +33,11 @@ use yii\widgets\Pjax;
         ],
     ]); ?>
 
-
     <?= $form->field($model, 'description', ['template' => '{input}{error}',])->widget(CKEditor::className(), [
         'options' => ['rows' => 6],
         'preset' => 'advanced',
     ]) ?>
 
-    <div class="col-12 col-sm-12">
-        <div class="form-group local-forms">
-            <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true]) ?>
-        </div>
-    </div>
-    <div class="col-12 col-sm-12">
-        <div class="form-group local-forms">
-            <?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true]) ?>
-        </div>
-    </div>
 
     <div class="form-group d-flex justify-content-center">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>

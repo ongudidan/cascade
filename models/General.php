@@ -36,6 +36,7 @@ class General extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
+            [['meta_description', 'meta_keywords'], 'string'],
             [['logo', 'favicon', 'home_banner'], 'string'],
             [['id', 'created_at', 'updated_at'], 'string', 'max' => 255],
             [['id'], 'unique'],

@@ -24,6 +24,17 @@ use yii\widgets\Pjax;
         'preset' => 'advanced',
     ]) ?>
 
+    <div class="col-12 col-sm-12">
+        <div class="form-group local-forms">
+            <?= $form->field($model, 'meta_description')->textarea(['maxlength' => true]) ?>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12">
+        <div class="form-group local-forms">
+            <?= $form->field($model, 'meta_keywords')->textarea(['maxlength' => true]) ?>
+        </div>
+    </div>
+
     <div class="form-group d-flex justify-content-center">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
     </div>

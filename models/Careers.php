@@ -29,7 +29,7 @@ class Careers extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['description'], 'string'],
+            [['description', 'meta_description', 'meta_keywords'], 'string'],
             [['id', 'created_at', 'updated_at'], 'string', 'max' => 255],
             [['id'], 'unique'],
         ];

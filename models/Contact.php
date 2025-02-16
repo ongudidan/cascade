@@ -36,7 +36,7 @@ class Contact extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['description'], 'string'],
+            [['description', 'meta_description', 'meta_keywords'], 'string'],
             [['id', 'banner_image', 'phone1', 'phone2', 'address', 'email', 'created_at', 'updated_at'], 'string', 'max' => 255],
             [['id'], 'unique'],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'], // Image validation

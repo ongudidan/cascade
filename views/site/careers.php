@@ -6,6 +6,9 @@ use yii\helpers\Html;
 
 $this->title = 'Careers';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['meta_description'] = $careersModel->meta_description ?? '';
+$this->params['meta_keywords'] = $careersModel->meta_keywords ?? '';
 ?>
 
 <div class="page-title">
