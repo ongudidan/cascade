@@ -136,13 +136,16 @@ $this->title = 'Cascade Swift Services Ltd';
                     <div class="col-lg-3 col-md-6">
                         <div class="service-icon-box">
                             <div class="icon"><img src="/web/uploads/<?= $service->icon ?? '' ?>" alt=""></div>
-                            <a href="<?= Url::to(['/site/service-view', 'id' => $service->id]) ?>" class="title h2"><?= $service->title ?? '' ?></a>
-                            <div class="des"><?= isset($service->description) ? StringHelper::truncateWords($service->description, 20, '...') : '' ?>
+                            <a href="<?= Url::to(['/site/service-view', 'id' => $service->id]) ?>" class="title h2">
+                                <?= strip_tags($service->title ?? '') ?>
+                            </a>
+                            <div class="des">
+                                <?= isset($service->description) ? StringHelper::truncateWords(strip_tags($service->description), 20, '...') : '' ?>
                             </div>
                         </div>
                     </div>
-
                 <?php } ?>
+
 
             </div>
         </div>
