@@ -52,6 +52,37 @@ class SiteSettingsController extends \yii\web\Controller
         return $this->render('index');
     }
 
+    public function actionAboutForm()
+    {
+
+        // Fetch or create About model
+        $model = About::find()->one() ?? new About();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $uploadedFile = Upload::upload($model, 'imageFile', 'banner_image');
+
+                $model->id = IdGenerator::generateUniqueId();
+
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'About saved successfully.');
+
+                    return $this->redirect(['index', 'id' => $model->id]);
+                } else {
+                    // Capture model errors and set a flash message
+                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                    Yii::$app->session->setFlash('error', 'Failed to save the About. Errors: <br>' . $errors);
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('about-form', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionContactForm()
     {
 
@@ -60,7 +91,7 @@ class SiteSettingsController extends \yii\web\Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $uploadedFile = Upload::upload($model, 'banner_image', 'banner_image');
+                $uploadedFile = Upload::upload($model, 'imageFile', 'banner_image');
 
                 $model->id = IdGenerator::generateUniqueId();
 

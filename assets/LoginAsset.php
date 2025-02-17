@@ -21,8 +21,9 @@ class LoginAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        // '/web/cms/css/adminlte.min.css',
-        '/web/adminlte/css/adminlte.css',
+        '/web/adminlte/css/adminlte.min.css',
+        "/web/adminlte/plugins/fontawesome-free/css/all.min.css",
+        // '/web/adminlte/css/adminlte.css',
 
         // "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css",
         // "https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css",
@@ -34,7 +35,7 @@ class LoginAsset extends AssetBundle
         "https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css",
         "https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css",
         "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css",
-        "/web/adminlte/dist/css/adminlte.css",
+        // "/web/adminlte/dist/css/adminlte.css",
     ];
     public $js = [
         // '/web/cms/js/adminlte.min.js',

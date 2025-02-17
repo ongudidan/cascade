@@ -21,7 +21,7 @@ $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
 $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
-$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('/web/uploads/'. ($generalModel ? $generalModel->favicon : 'default-favicon.ico'))]);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('/web/uploads/' . ($generalModel ? $generalModel->favicon : 'default-favicon.ico'))]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -68,6 +68,49 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         //     $("#fixed-header-dark").removeClass("background-white").addClass("background-dark");
         // });
     </script>
+
+    <?php
+    // Display flash messages as Toastr notifications if any are set
+    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+        // Set toastr type based on the session flash key
+        $type = 'info'; // Default type
+
+        switch ($key) {
+            case 'success':
+                $type = 'success';
+                break;
+            case 'error':
+                $type = 'error';
+                break;
+            case 'warning':
+                $type = 'warning';
+                break;
+            case 'info':
+                $type = 'info';
+                break;
+        }
+
+        // Output the toastr notification using the session message
+        $this->registerJs("
+              toastr.options = {
+            'closeButton': true,  // Enable the close button
+            'debug': false,
+            'newestOnTop': true,
+            'progressBar': true,  // Show progress bar
+            'preventDuplicates': true,
+            'showDuration': '300',
+            'hideDuration': '1000',
+            'timeOut': '5000',  // Timeout duration in ms
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut'
+        };
+        toastr.$type('$message');
+    ");
+    }
+    ?>
 </body>
 
 

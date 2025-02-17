@@ -53,11 +53,24 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+    // public function actions()
+    // {
+    //     return [
+    //         'error' => [
+    //             'class' => 'yii\web\ErrorAction',
+    //         ],
+    //         'captcha' => [
+    //             'class' => 'yii\captcha\CaptchaAction',
+    //             'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+    //         ],
+    //     ];
+    // }
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
+                'layout' => 'LoginLayout', // Specify your custom layout file
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
@@ -233,7 +246,9 @@ class SiteController extends Controller
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
-                return $this->goHome();
+                // return $this->goHome();
+        return $this->redirect(['site/login']); // Redirect to login page
+
             }
 
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
@@ -264,7 +279,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
 
-            return $this->goHome();
+            // return $this->goHome();
+            return $this->redirect(['site/login']); // Redirect to login page
+
         }
 
         return $this->render('resetPassword', [
@@ -286,7 +303,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->goHome();
+                // return $this->goHome();
+        return $this->redirect(['site/login']); // Redirect to login page
+
             }
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
         }

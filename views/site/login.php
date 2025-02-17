@@ -2,7 +2,6 @@
 
 /** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
-
 /** @var app\models\LoginForm $model */
 
 use yii\bootstrap5\ActiveForm;
@@ -12,54 +11,85 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="login-box">
-    <!-- <div class="login-logo">
-        <a href="../index2.html"><b>Admin</b>LTE</a>
-    </div> -->
-    <!-- /.login-logo -->
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
 
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-            <div class="input-group mb-3">
-                <input type="email" name="LoginForm[email]" class="form-control" placeholder="Email" />
-                <div class="input-group-text"><span class="bi bi-envelope"></span></div>
-            </div>
-            <div class="input-group mb-3">
-                <input type="password" name="LoginForm[password]" class="form-control" placeholder="Password" />
-                <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
-            </div>
-            <!--begin::Row-->
-            <div class="row">
-                <div class="col-8">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="LoginForm[rememberMe]" value="1" id="flexCheckDefault" />
-                        <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
+    <div class="login-box w-100" style="max-width: 400px;">
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+
+                <div class="form-group">
+                    <?= $form->field($model, 'email', [
+                        'template' => '
+                            <div class="input-group">
+                                {input}
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            {error}', // Ensure errors are shown below the input
+                        'options' => ['class' => 'w-100 m-0 p-0']
+                    ])->textInput([
+                        'autofocus' => true,
+                        'class' => 'form-control' . ($model->hasErrors('email') ? ' is-invalid' : ''),
+                        'placeholder' => 'Email'
+                    ]) ?>
+
+                    <div class="invalid-feedback">
+                        <?= $model->getFirstError('email') ?>
                     </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-4">
-                    <div class="d-grid gap-2">
-                        <?= Html::submitButton('Sign In', ['class' => 'btn btn-primary']) ?>
+
+                <div class="form-group">
+                    <?= $form->field($model, 'password', [
+                        'template' => '
+                            <div class="input-group">
+                                {input}
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fa fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            {error}', // Ensure errors are shown below the input
+                        'options' => ['class' => 'w-100 m-0 p-0']
+                    ])->passwordInput([
+                        'autofocus' => true,
+                        'class' => 'form-control' . ($model->hasErrors('password') ? ' is-invalid' : ''),
+                        'placeholder' => 'Password'
+                    ]) ?>
+
+                    <div class="invalid-feedback">
+                        <?= $model->getFirstError('password') ?>
                     </div>
                 </div>
-                <!-- /.col -->
-            </div>
-            <!--end::Row-->
-            <?php ActiveForm::end(); ?>
 
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="LoginForm[rememberMe]" value="1" id="flexCheckDefault" />
+                            <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-grid gap-2">
+                            <?= Html::submitButton('Sign In', ['class' => 'btn btn-primary']) ?>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- <p class="mb-1"><a href="forgot-password.html">I forgot my password</a></p> -->
-            <div class="my-1 mx-0" style="color:#999;">
-                If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                <br>
-                Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+                <?php ActiveForm::end(); ?>
+
+                <div class="my-1 mx-0" style="color:#999;">
+                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+                    <br>
+                </div>
+
             </div>
-            <!-- <p class="mb-0">
-                <a href="register.html" class="text-center"> Register a new membership </a>
-            </p> -->
         </div>
-        <!-- /.login-card-body -->
     </div>
 </div>
