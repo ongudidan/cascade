@@ -96,8 +96,8 @@ class SiteController extends Controller
         $serviceModel = Service::find()->all();
 
 
-        return $this->render('index',[
-            'generalModel'=> $generalModel,
+        return $this->render('index', [
+            'generalModel' => $generalModel,
             'contactModel' => $contactModel,
             'serviceModel' => $serviceModel,
             'whyUsModel' => $whyUsModel,
@@ -192,9 +192,13 @@ class SiteController extends Controller
         $contactModel = Contact::find()->one();
 
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+            // Yii::$app->session->setFlash('contactFormSubmitted');
+            Yii::$app->session->setFlash('success', 'Contact form submitted successfully.');
+
 
             return $this->refresh();
+            // return $this->redirect(['/site/contact']); // Redirect to login page
+
         }
         return $this->render('contact', [
             'model' => $model,
@@ -212,8 +216,8 @@ class SiteController extends Controller
     {
         $aboutModel = About::find()->one();
 
-        return $this->render('about',[
-            'aboutModel'=> $aboutModel,
+        return $this->render('about', [
+            'aboutModel' => $aboutModel,
         ]);
     }
 
@@ -247,7 +251,7 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
                 // return $this->goHome();
-        return $this->redirect(['site/login']); // Redirect to login page
+                return $this->redirect(['site/login']); // Redirect to login page
 
             }
 
@@ -304,7 +308,7 @@ class SiteController extends Controller
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
                 // return $this->goHome();
-        return $this->redirect(['site/login']); // Redirect to login page
+                return $this->redirect(['site/login']); // Redirect to login page
 
             }
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');

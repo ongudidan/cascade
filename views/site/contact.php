@@ -14,61 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['meta_description'] = $contactModel->meta_description ?? '';
 $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 ?>
-<!-- <div class="site-contact">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
-
-        <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
-        </div>
-
-        <p>
-            Note that if you turn on the Yii debugger, you should be able
-            to view the mail message on the mail panel of the debugger.
-            <?php if (Yii::$app->mailer->useFileTransport): ?>
-                Because the application is in development mode, the email is not sent but saved as
-                a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-                application component to be false to enable email sending.
-            <?php endif; ?>
-        </p>
-
-    <?php else: ?>
-
-        <p>
-            If you have business inquiries or other questions, please fill out the following form to contact us.
-            Thank you.
-        </p>
-
-        <div class="row">
-            <div class="col-lg-5">
-
-                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-                    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                    <?= $form->field($model, 'email') ?>
-
-                    <?= $form->field($model, 'subject') ?>
-
-                    <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                    <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                    ]) ?>
-
-                    <div class="form-group">
-                        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                    </div>
-
-                <?php ActiveForm::end(); ?>
-
-            </div>
-        </div>
-
-    <?php endif; ?>
-</div> -->
 
 
 
@@ -90,7 +36,27 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 
     <div class="container">
         <div class="row">
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
 
+                <div class="alert alert-success">
+                    Thank you for contacting us. We will respond to you as soon as possible.
+                </div>
+
+                <p>
+                    Note that if you turn on the Yii debugger, you should be able
+                    to view the mail message on the mail panel of the debugger.
+                    <?php if (Yii::$app->mailer->useFileTransport): ?>
+                        Because the application is in development mode, the email is not sent but saved as
+                        a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
+                        Please configure the <code>useFileTransport</code> property of the <code>mail</code>
+                        application component to be false to enable email sending.
+                    <?php endif; ?>
+                </p>
+
+
+
+
+            <?php endif; ?>
             <div class="col-lg-6 sm-mb-45px">
                 <!-- <p> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
                     printer took a galley of type and scrambled it to make a type specimen book.</p> -->
@@ -111,37 +77,46 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
                 <div class="contact-modal">
                     <div class="background-main-color">
                         <div class="padding-30px">
-                            <h3 class="padding-bottom-15px">Send Us Email</h3>
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label>Full Name</label>
-                                        <input type="text" class="form-control" id="inputName44" placeholder="Name">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" id="inputEmail44"
-                                            placeholder="Email">
-                                    </div>
+                            <p>
+                                If you have business inquiries or other questions, please fill out the following form to contact us.
+                                Thank you.
+                            </p>
+
+                            <?php $form = ActiveForm::begin([
+                                'id' => 'contact-form',
+                                // 'action' => ['/site/contact'], // Ensure it submits to the correct action
+                                'options' => ['data-pjax' => false],
+                                'method' => 'post'
+                            ]); ?>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
                                 </div>
-                                <div class="form-group">
-                                    <label>Message</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea11"
-                                        rows="3"></textarea>
+                                <div class="form-group col-md-6">
+                                    <?= $form->field($model, 'email') ?>
                                 </div>
-                                <a href="#"
-                                    class="btn-sm btn-lg btn-block background-dark text-white text-center  text-uppercase rounded-0 padding-15px">SEND
-                                    MESSAGE</a>
-                            </form>
+                                <div class="form-group col-md-12">
+                                    <?= $form->field($model, 'subject') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
+                            </div>
+
+                            <?= Html::submitButton('SEND MESSAGE', [
+                                'class' => 'btn-sm btn-lg btn-block background-dark text-white text-center text-uppercase rounded-0 padding-15px',
+                                'name' => 'contact-button',
+                                // 'data-pjax' => 0
+                            ]) ?>
+
+                            <?php ActiveForm::end(); ?>
                         </div>
                     </div>
                 </div>
             </div>
 
-
         </div>
     </div>
 
 </div>
-
-

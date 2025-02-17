@@ -23,6 +23,9 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
 
+        "/web/admin/css/toatr.css",
+
+
         "/web/frontend/assets/css/animate.css",
         "/web/frontend/assets/css/owl.carousel.css",
         "/web/frontend/assets/css/owl.theme.css",
@@ -40,7 +43,7 @@ class AppAsset extends AssetBundle
     public $js = [
 
         "/web/frontend/assets/js/nile-slider.js",
-        "/web/frontend/assets/js/jquery-3.2.1.min.js",
+        // "/web/frontend/assets/js/jquery-3.2.1.min.js",
         "/web/frontend/assets/rslider/js/jquery.themepunch.tools.min.js",
         "/web/frontend/assets/rslider/js/jquery.themepunch.revolution.min.js",
         "/web/frontend/assets/rslider/js/extensions/revolution.extension.actions.min.js",
@@ -58,6 +61,9 @@ class AppAsset extends AssetBundle
         "/web/frontend/assets/js/custom.js",
         "/web/frontend/assets/js/popper.min.js",
         "/web/frontend/assets/js/bootstrap.min.js",
+
+        "/web/admin/js/toastr.min.js",
+        "/web/admin/js/toastr.js",
     ];
     public $depends = [
         'yii\web\YiiAsset',
