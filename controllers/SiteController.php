@@ -195,7 +195,7 @@ class SiteController extends Controller
 
         Yii::$app->params['adminEmail'];
 
-        if ($model->load(Yii::$app->request->post()) && $model->contact($emailSettingModel->admin_email ?? '')) {
+        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             // Yii::$app->session->setFlash('contactFormSubmitted');
             Yii::$app->session->setFlash('success', 'Contact form submitted successfully.');
 
