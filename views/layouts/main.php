@@ -111,6 +111,25 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     ");
     }
     ?>
+
+    <script>
+        function initMobileToggle() {
+            $(".mobile-toggle").off("click").on("click", function(e) {
+                e.preventDefault();
+                $("#menu-main").toggleClass("menu-open");
+            });
+        }
+
+        // Run the function on page load
+        $(document).ready(function() {
+            initMobileToggle();
+        });
+
+        // Reinitialize after PJAX update
+        $(document).on("pjax:end", function() {
+            initMobileToggle();
+        });
+    </script>
 </body>
 
 

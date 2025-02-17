@@ -6,7 +6,6 @@
 
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
-use yii\captcha\Captcha;
 
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,10 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['meta_description'] = $contactModel->meta_description ?? '';
 $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 ?>
-
-
-
-
 
 <div class="page-title">
     <div class="container">
@@ -31,9 +26,7 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
     </div>
 </div>
 
-
 <div class="padding-tb-100px">
-
     <div class="container">
         <div class="row">
             <?php if (Yii::$app->session->hasFlash('success')): ?>
@@ -44,35 +37,24 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 
             <?php endif; ?>
             <div class="col-lg-6 sm-mb-45px">
-                <!-- <p> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book.</p> -->
                 <h5>Phone :</h5>
-                <span class="d-block"><i class="fa fa-phone text-main-color margin-right-10px"
-                        aria-hidden="true"></i> <?= $contactModel->phone1 ?? '' ?></span>
-                <span class="d-block sm-mb-30px"><i class="fa fa-mobile text-main-color margin-right-10px"
-                        aria-hidden="true"></i> <?= $contactModel->phone2 ?? '' ?></span>
+                <span class="d-block"><i class="fa fa-phone text-main-color margin-right-10px"></i> <?= $contactModel->phone1 ?? '' ?></span>
+                <span class="d-block sm-mb-30px"><i class="fa fa-mobile text-main-color margin-right-10px"></i> <?= $contactModel->phone2 ?? '' ?></span>
                 <h5 class="margin-top-20px">Address :</h5>
-                <span class="d-block sm-mb-30px"><i class="fa fa-map text-main-color margin-right-10px"
-                        aria-hidden="true"></i> <?= $contactModel->address ?? '' ?> </span>
+                <span class="d-block sm-mb-30px"><i class="fa fa-map text-main-color margin-right-10px"></i> <?= $contactModel->address ?? '' ?> </span>
                 <h5 class="margin-top-20px">Email :</h5>
-                <span class="d-block sm-mb-30px"><i class="fa fa-envelope-open text-main-color margin-right-10px"
-                        aria-hidden="true"></i> <?= $contactModel->email ?? '' ?> </span>
+                <span class="d-block sm-mb-30px"><i class="fa fa-envelope-open text-main-color margin-right-10px"></i> <?= $contactModel->email ?? '' ?> </span>
             </div>
 
             <div class="col-lg-6">
                 <div class="contact-modal">
                     <div class="bg-dark text-white">
                         <div class="padding-30px">
-                            <p>
-                                If you have business inquiries or other questions, please fill out the following form to contact us.
-                                Thank you.
-                            </p>
+                            <p>If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.</p>
 
                             <?php $form = ActiveForm::begin([
                                 'id' => 'contact-form',
-                                // 'action' => ['/site/contact'], // Ensure it submits to the correct action
-                                'options' => ['data-pjax' => true],
-                                'method' => 'post'
+                                'options' => ['onsubmit' => 'return false;'], // Prevent default submission
                             ]); ?>
 
                             <div class="form-row">
@@ -92,17 +74,61 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 
                             <?= Html::submitButton('SEND MESSAGE', [
                                 'class' => 'btn-sm btn-lg btn-block background-dark text-white text-center text-uppercase rounded-0 padding-15px',
-                                'name' => 'contact-button',
-                                // 'data-pjax' => 0
+                                'id' => 'contact-submit-btn'
                             ]) ?>
 
                             <?php ActiveForm::end(); ?>
+
+                            <!-- Success Message -->
+                            <div id="success-message" class="alert alert-success mt-3" style="display: none;">
+                                Thank you for contacting us. We will respond to you as soon as possible.
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>
+
+<?php
+$ajaxUrl = \yii\helpers\Url::to(['site/contact']); // Ensure this points to the correct action
+$js = <<<JS
+    $(document).on('click', '#contact-submit-btn', function(e) {
+        e.preventDefault(); // Prevent form submission
+        
+        var form = $('#contact-form');
+        var formData = form.serialize();
+
+        $.ajax({
+            url: '$ajaxUrl',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            beforeSend: function() {
+                $('#contact-submit-btn').prop('disabled', true).text('Sending...');
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#success-message').fadeIn().delay(5000).fadeOut();
+                    form.trigger('reset'); // Reset form fields
+                } else {
+                    $.each(response.errors, function(key, val) {
+                        form.find('#' + key).addClass('is-invalid').after('<div class="invalid-feedback">' + val + '</div>');
+                    });
+                }
+            },
+            // error: function() {
+            //     alert('Something went wrong. Please try again.');
+            // },
+            complete: function() {
+                $('#contact-submit-btn').prop('disabled', false).text('SEND MESSAGE');
+            }
+        });
+
+        return false;
+    });
+JS;
+$this->registerJs($js);
+?>

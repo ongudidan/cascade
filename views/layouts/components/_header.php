@@ -61,7 +61,7 @@ $services = Service::find()->all();
 </header>
 
 
-<script>
+<!-- <script>
     function initMobileToggle() {
         $(".mobile-toggle").off("click").on("click", function(e) {
             e.preventDefault();
@@ -78,4 +78,4 @@ $services = Service::find()->all();
     $(document).on("pjax:end", function() {
         initMobileToggle();
     });
-</script>
+</script> -->
