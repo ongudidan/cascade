@@ -14,140 +14,42 @@ use app\models\Mission;
 use app\models\Vision;
 use app\models\WhyUs;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class SiteSettingsController extends \yii\web\Controller
 {
     public $layout = 'CmsLayout';
 
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['about-form', 'contact-form', 'careers-form', 'why-us-form', 'help-desk-form','general-form', 'index'],
+                    'rules' => [
+                        [
+                            'actions' => ['about-form', 'contact-form', 'careers-form', 'why-us-form', 'help-desk-form','general-form', 'index'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        // 'delete' => ['POST'],
+                    ],
+                ],
+            ]
+        );
+    }
+
     public function actionIndex()
     {
         return $this->render('index');
-    }
-
-    public function actionAboutForm()
-    {
-        // $model = new About();
-
-        // Fetch or create About model
-        $model = About::find()->one() ?? new About();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $uploadedFile = Upload::upload($model, 'imageFile', 'banner_image');
-
-                $model->id = IdGenerator::generateUniqueId();
-
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'About saved successfully.');
-
-                    return $this->redirect(['index', 'id' => $model->id]);
-                } else {
-                    // Capture model errors and set a flash message
-                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-                    Yii::$app->session->setFlash('error', 'Failed to save the About. Errors: <br>' . $errors);
-                }
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->renderAjax('about-form', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionBackgroundForm()
-    {
-        // $model = new About();
-
-        // Fetch or create Background model
-        $model = Background::find()->one() ?? new Background();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $uploadedFile = Upload::upload($model, 'banner_image', 'banner_image');
-
-                $model->id = IdGenerator::generateUniqueId();
-
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'Background saved successfully.');
-
-                    return $this->redirect(['index', 'id' => $model->id]);
-                } else {
-                    // Capture model errors and set a flash message
-                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-                    Yii::$app->session->setFlash('error', 'Failed to save the Background. Errors: <br>' . $errors);
-                }
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->renderAjax('background-form', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionVisionForm()
-    {
-
-        // Fetch or create Vision model
-        $model = Vision::find()->one() ?? new Vision();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                $uploadedFile = Upload::upload($model, 'banner_image', 'banner_image');
-
-                $model->id = IdGenerator::generateUniqueId();
-
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'Vision saved successfully.');
-
-                    return $this->redirect(['index', 'id' => $model->id]);
-                } else {
-                    // Capture model errors and set a flash message
-                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-                    Yii::$app->session->setFlash('error', 'Failed to save the Vision. Errors: <br>' . $errors);
-                }
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->renderAjax('vision-form', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionMissionForm()
-    {
-
-        // Fetch or create Mission model
-        $model = Mission::find()->one() ?? new Mission();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                // $uploadedFile = Upload::upload($model, 'banner_image', 'banner_image');
-
-                $model->id = IdGenerator::generateUniqueId();
-
-                if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'Mission saved successfully.');
-
-                    return $this->redirect(['index', 'id' => $model->id]);
-                } else {
-                    // Capture model errors and set a flash message
-                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-                    Yii::$app->session->setFlash('error', 'Failed to save the Mission. Errors: <br>' . $errors);
-                }
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->renderAjax('mission-form', [
-            'model' => $model,
-        ]);
     }
 
     public function actionContactForm()

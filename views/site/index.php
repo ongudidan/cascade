@@ -8,7 +8,7 @@ use yii\helpers\Url;
 $this->params['meta_description'] = $generalModel->meta_description ?? '';
 $this->params['meta_keywords'] = $generalModel->meta_keywords ?? '';
 
-$this->title = 'Cascade Swift Services Ltd';
+$this->title = 'Cascadeswift EA agency LTD';
 ?>
 
 <div>

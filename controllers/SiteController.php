@@ -14,8 +14,13 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\General;
 use app\models\HelpDesk;
+use app\models\PasswordResetRequestForm;
+use app\models\ResendVerificationEmailForm;
+use app\models\ResetPasswordForm;
 use app\models\Service;
 use app\models\WhyUs;
+use InvalidArgumentException;
+use yii\web\BadRequestHttpException;
 
 class SiteController extends Controller
 {
@@ -39,7 +44,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
-                    'logout' => ['post'],
+                    // 'logout' => ['post'],
                 ],
             ],
         ];
@@ -108,15 +113,35 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+    // public function actionLogin()
+    // {
+    //     $this->layout = 'LoginLayout';
+
+    //     if (!Yii::$app->user->isGuest) {
+    //         return $this->goHome();
+    //     }
+
+    //     $model = new LoginForm();
+    //     if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    //         return $this->goBack();
+    //     }
+
+    //     $model->password = '';
+    //     return $this->render('login', [
+    //         'model' => $model,
+    //     ]);
+    // }
     public function actionLogin()
     {
+        $this->layout = 'LoginLayout';
+
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['/cms/default/index']); // Redirect to CMs module
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['/cms/default/index']); // Redirect after login success
         }
 
         $model->password = '';
@@ -130,11 +155,16 @@ class SiteController extends Controller
      *
      * @return Response
      */
+    // public function actionLogout()
+    // {
+    //     Yii::$app->user->logout();
+
+    //     return $this->goHome();
+    // }
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
-        return $this->goHome();
+        return $this->redirect(['site/login']); // Redirect to login page
     }
 
     /**
@@ -185,6 +215,84 @@ class SiteController extends Controller
 
         return $this->render('careers', [
             'careersModel' => $careersModel,
+        ]);
+    }
+
+
+    /**
+     * Requests password reset.
+     *
+     * @return mixed
+     */
+    public function actionRequestPasswordReset()
+    {
+        $this->layout = 'LoginLayout';
+
+        $model = new PasswordResetRequestForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+
+                return $this->goHome();
+            }
+
+            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+        }
+
+        return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword($token)
+    {
+        $this->layout = 'LoginLayout';
+
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'New password saved.');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model,
+        ]);
+    }
+
+
+    /**
+     * Resend verification email
+     *
+     * @return mixed
+     */
+    public function actionResendVerificationEmail()
+    {
+        $this->layout = 'LoginLayout';
+
+        $model = new ResendVerificationEmailForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                return $this->goHome();
+            }
+            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+        }
+
+        return $this->render('resendVerificationEmail', [
+            'model' => $model
         ]);
     }
 }

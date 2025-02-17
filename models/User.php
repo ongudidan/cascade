@@ -62,7 +62,7 @@ class User extends ActiveRecord implements IdentityInterface
             // General status rules
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-            [['username'], 'required'],
+            [['email', 'username'], 'required'],
             ['email', 'email'],
 
             // Rules specific to change password scenario
@@ -127,6 +127,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
