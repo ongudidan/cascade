@@ -200,8 +200,8 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Contact form submitted successfully.');
 
 
-            // return $this->refresh();
-            return $this->redirect(['/site/contact']); // Redirect to login page
+            return $this->refresh();
+            // return $this->redirect(['/site/contact']); // Redirect to login page
 
         }
         return $this->render('contact', [
