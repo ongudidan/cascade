@@ -8,6 +8,7 @@ use app\models\About;
 use app\models\Background;
 use app\models\Careers;
 use app\models\Contact;
+use app\models\EmailSetting;
 use app\models\General;
 use app\models\HelpDesk;
 use app\models\Mission;
@@ -79,6 +80,36 @@ class SiteSettingsController extends \yii\web\Controller
         }
 
         return $this->renderAjax('about-form', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEmailSettingForm()
+    {
+
+        // Fetch or create Email Setting model
+        $model = EmailSetting::find()->one() ?? new EmailSetting();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+
+                $model->id = IdGenerator::generateUniqueId();
+
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'Email setings  saved successfully.');
+
+                    return $this->redirect(['index', 'id' => $model->id]);
+                } else {
+                    // Capture model errors and set a flash message
+                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                    Yii::$app->session->setFlash('error', 'Failed to save the Email settings. Errors: <br>' . $errors);
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('email-setting-form', [
             'model' => $model,
         ]);
     }

@@ -2,7 +2,6 @@
 
 return [
     'supportEmail' => 'support@example.com',
-
     'adminEmail' => 'ongudidan@gmail.com',
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'cascadeswift.net mailer',

@@ -42,20 +42,6 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
                     Thank you for contacting us. We will respond to you as soon as possible.
                 </div>
 
-                <p>
-                    Note that if you turn on the Yii debugger, you should be able
-                    to view the mail message on the mail panel of the debugger.
-                    <?php if (Yii::$app->mailer->useFileTransport): ?>
-                        Because the application is in development mode, the email is not sent but saved as
-                        a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                        Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-                        application component to be false to enable email sending.
-                    <?php endif; ?>
-                </p>
-
-
-
-
             <?php endif; ?>
             <div class="col-lg-6 sm-mb-45px">
                 <!-- <p> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
@@ -75,7 +61,7 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
 
             <div class="col-lg-6">
                 <div class="contact-modal">
-                    <div class="background-main-color">
+                    <div class="bg-dark text-white">
                         <div class="padding-30px">
                             <p>
                                 If you have business inquiries or other questions, please fill out the following form to contact us.
@@ -85,7 +71,7 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
                             <?php $form = ActiveForm::begin([
                                 'id' => 'contact-form',
                                 // 'action' => ['/site/contact'], // Ensure it submits to the correct action
-                                'options' => ['data-pjax' => false],
+                                'options' => ['data-pjax' => true],
                                 'method' => 'post'
                             ]); ?>
 

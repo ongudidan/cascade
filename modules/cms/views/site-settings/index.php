@@ -37,6 +37,10 @@ $rows = [
         'edit' => Url::to(['/cms/site-settings/general-form']),
         // 'view' => Url::to(['/cms/site-settings/view-logo-favicon']),
     ],
+    'Email Settings' => [
+        'edit' => Url::to(['/cms/site-settings/email-setting-form']),
+        // 'view' => Url::to(['/cms/site-settings/view-logo-favicon']),
+    ],
 ];
 
 

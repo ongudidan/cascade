@@ -12,6 +12,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\EmailSetting;
 use app\models\General;
 use app\models\HelpDesk;
 use app\models\PasswordResetRequestForm;
@@ -190,14 +191,17 @@ class SiteController extends Controller
         $model = new ContactForm();
 
         $contactModel = Contact::find()->one();
+        $emailSettingModel = EmailSetting::find()->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+        Yii::$app->params['adminEmail'];
+
+        if ($model->load(Yii::$app->request->post()) && $model->contact($emailSettingModel->admin_email ?? '')) {
             // Yii::$app->session->setFlash('contactFormSubmitted');
             Yii::$app->session->setFlash('success', 'Contact form submitted successfully.');
 
 
-            return $this->refresh();
-            // return $this->redirect(['/site/contact']); // Redirect to login page
+            // return $this->refresh();
+            return $this->redirect(['/site/contact']); // Redirect to login page
 
         }
         return $this->render('contact', [
