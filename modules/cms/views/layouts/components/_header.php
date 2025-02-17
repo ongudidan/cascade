@@ -55,7 +55,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
 
-                <a class="dropdown-item" href="<?= Url::to('/pos/default/user-profile') ?>">My Profile</a>
+                <a class="dropdown-item" href="<?= Url::to('/cms/default/user-profile') ?>">My Profile</a>
                 <!-- <a class="dropdown-item" href="inbox.html">Inbox</a> -->
                 <a class="dropdown-item" href="<?= Url::to('/site/logout') ?>">Logout</a>
             </div>
