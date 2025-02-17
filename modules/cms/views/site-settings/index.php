@@ -50,7 +50,7 @@ $rows = [
             <div class="card card-table comman-shadow">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-sm mb-0">
+                        <table class="table table-bordered table-striped table- mb-0">
                             <thead class="service-thread">
                                 <tr>
                                     <th>#</th>

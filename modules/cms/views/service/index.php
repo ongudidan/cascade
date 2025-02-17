@@ -63,7 +63,7 @@ $this->params['modalSize'] = \yii\bootstrap5\Modal::SIZE_EXTRA_LARGE;
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-sm mb-0">
+                        <table class="table table-bordered table-striped table-lg mb-0">
                             <thead class="service-thread">
                                 <tr>
                                     <th>#</th>
@@ -94,19 +94,19 @@ $this->params['modalSize'] = \yii\bootstrap5\Modal::SIZE_EXTRA_LARGE;
 
                                             <td class="text-center"> <!-- Align buttons to the center -->
                                                 <div class="d-flex justify-content-center">
-                                                    <?= Html::button('<i class="fas fa-edit"></i> Edit', [
+                                                    <?= Html::button('<i class="fas fa-edit"></i> ', [
                                                         'class' => 'btn btn-sm edit-btn btn-outline-info me-2',
                                                         'data-url' => \yii\helpers\Url::to(['/cms/service/update', 'id' => $row->id]),
                                                         'data-title' => 'Edit Class Section',
                                                     ]) ?>
 
-                                                    <?= Html::button('<i class="fas fa-eye"></i> View', [
+                                                    <?= Html::button('<i class="fas fa-eye"></i> ', [
                                                         'class' => 'btn btn-sm view-btn btn-outline-primary me-2',
                                                         'data-url' => \yii\helpers\Url::to(['/cms/service/view', 'id' => $row->id]),
                                                         'data-title' => 'View Class Section',
                                                     ]) ?>
 
-                                                    <?= Html::button('<i class="fas fa-trash-alt"></i> Delete', [
+                                                    <?= Html::button('<i class="fas fa-trash-alt"></i> ', [
                                                         'class' => 'btn btn-sm delete-btn btn-outline-danger',
                                                         'data-url' => \yii\helpers\Url::to(['/cms/service/delete', 'id' => $row->id]),
                                                     ]) ?>
