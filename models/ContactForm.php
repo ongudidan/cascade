@@ -47,19 +47,58 @@ class ContactForm extends Model
      * @param string $email the target email address
      * @return bool whether the model passes validation
      */
+    // public function contact($email)
+    // {
+    //     if ($this->validate()) {
+    //         Yii::$app->mailer->compose()
+    //             ->setTo($email)
+    //             ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+    //             ->setReplyTo([$this->email => $this->name])
+    //             ->setSubject($this->subject)
+    //             ->setTextBody($this->body)
+    //             ->send();
+
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
     public function contact($email)
     {
         if ($this->validate()) {
-            Yii::$app->mailer->compose()
-                ->setTo($email)
-                ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
-                ->setReplyTo([$this->email => $this->name])
-                ->setSubject($this->subject)
-                ->setTextBody($this->body)
-                ->send();
+            set_time_limit(0); // Bypass the timeout limit
 
-            return true;
+            // Loop until the email is successfully sent (with a max retry limit if necessary)
+            $emailSent = false;
+            $maxRetries = 5; // Max retries before giving up
+            $retries = 0;
+
+            while (!$emailSent && $retries < $maxRetries) {
+                try {
+                    $emailSent = Yii::$app->mailer->compose()
+                        ->setTo($email)
+                        ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+                        ->setReplyTo([$this->email => $this->name])
+                        ->setSubject($this->subject)
+                        ->setTextBody($this->body)
+                        ->send();
+
+                    if ($emailSent) {
+                        Yii::info("Email successfully sent to: $email");
+                    } else {
+                        throw new \Exception("Failed to send email to $email on attempt $retries.");
+                    }
+                } catch (\Exception $e) {
+                    Yii::error("Error sending email: " . $e->getMessage());
+                    $retries++;
+                    sleep(2); // Wait for 2 seconds before retrying
+                }
+            }
+
+            return $emailSent;
         }
+
         return false;
     }
+
 }
