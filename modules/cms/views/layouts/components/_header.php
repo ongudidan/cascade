@@ -18,14 +18,6 @@ use yii\helpers\Url;
             <i class="fas fa-bars"></i>
         </a>
     </div>
-    <!-- 
-    <div class="top-nav-search">
-        <form>
-            <input type="text" class="form-control" placeholder="Search here">
-            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-    </div> -->
-
 
     <a class="mobile_btn" id="mobile_btn">
         <i class="fas fa-bars"></i>
@@ -56,7 +48,6 @@ use yii\helpers\Url;
                 </div>
 
                 <a class="dropdown-item" href="<?= Url::to('/cms/default/user-profile') ?>">My Profile</a>
-                <!-- <a class="dropdown-item" href="inbox.html">Inbox</a> -->
                 <a class="dropdown-item" href="<?= Url::to('/site/logout') ?>">Logout</a>
             </div>
         </li>
