@@ -21,52 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-                <div class="form-group">
-                    <?= $form->field($model, 'password', [
-                        'template' => '
-                            <div class="input-group">
-                                {input}
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fa fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            {error}', // Ensure errors are shown below the input
-                        'options' => ['class' => 'w-100 m-0 p-0']
-                    ])->textInput([
-                        'autofocus' => true,
-                        'class' => 'form-control' . ($model->hasErrors('password') ? ' is-invalid' : ''),
-                        'placeholder' => 'password'
-                    ]) ?>
-
-                    <div class="invalid-feedback">
-                        <?= $model->getFirstError('password') ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <?= $form->field($model, 'newPasswordConfirm', [
-                        'template' => '
-                            <div class="input-group">
-                                {input}
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fa fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            {error}', // Ensure errors are shown below the input
-                        'options' => ['class' => 'w-100 m-0 p-0']
-                    ])->textInput([
-                        'autofocus' => true,
-                        'class' => 'form-control' . ($model->hasErrors('newPasswordConfirm') ? ' is-invalid' : ''),
-                        'placeholder' => 'Confirm New Password'
-                    ]) ?>
-
-                    <div class="invalid-feedback">
-                        <?= $model->getFirstError('password') ?>
-                    </div>
-                </div>
+                <?= $form->field($model, 'password')->passwordInput([
+                    'autofocus' => true,
+                    'placeholder' => 'Password',
+                    'class' => 'form-control input-group mb-3'
+                ])->label(false) ?>
 
                 <div class="row">
                     <div class="col-12">

@@ -20,59 +20,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                <div class="form-group">
-                    <?= $form->field($model, 'email', [
-                        'template' => '
-                            <div class="input-group">
-                                {input}
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-envelope"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            {error}', // Ensure errors are shown below the input
-                        'options' => ['class' => 'w-100 m-0 p-0']
-                    ])->textInput([
-                        'autofocus' => true,
-                        'class' => 'form-control' . ($model->hasErrors('email') ? ' is-invalid' : ''),
-                        'placeholder' => 'Email'
-                    ]) ?>
+                <?= $form->field($model, 'email')->textInput([
+                    'autofocus' => true,
+                    'placeholder' => 'Email',
+                    'class' => 'form-control input-group mb-3'
+                ])->label(false) ?>
 
-                    <div class="invalid-feedback">
-                        <?= $model->getFirstError('email') ?>
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <?= $form->field($model, 'password', [
-                        'template' => '
-                            <div class="input-group">
-                                {input}
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fa fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            {error}', // Ensure errors are shown below the input
-                        'options' => ['class' => 'w-100 m-0 p-0']
-                    ])->passwordInput([
-                        'autofocus' => true,
-                        'class' => 'form-control' . ($model->hasErrors('password') ? ' is-invalid' : ''),
-                        'placeholder' => 'Password'
-                    ]) ?>
-
-                    <div class="invalid-feedback">
-                        <?= $model->getFirstError('password') ?>
-                    </div>
-                </div>
+                <?= $form->field($model, 'password')->passwordInput([
+                    'autofocus' => true,
+                    'placeholder' => 'Password',
+                    'class' => 'form-control input-group mb-3'
+                ])->label(false) ?>
 
                 <div class="row">
                     <div class="col-8">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="LoginForm[rememberMe]" value="1" id="flexCheckDefault" />
-                            <label class="form-check-label" for="flexCheckDefault"> Remember Me </label>
+                            <?= $form->field($model, 'rememberMe')->checkbox() ?>
                         </div>
                     </div>
                     <div class="col-4">
@@ -88,7 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
                     <br>
                 </div>
-
             </div>
         </div>
     </div>
