@@ -5,10 +5,10 @@ use yii\helpers\Url;
 <div class="header navbar-background">
 
     <div class="header-left navbar-background">
-        <a href="<?= Url::to('/admin') ?>" class="logo">
+        <a href="<?= Url::to('/cms') ?>" class="logo">
             <img src="/web/admin/img/logo.png" alt="Logo">
         </a>
-        <a href="<?= Url::to('/admin') ?>" class="logo logo-small">
+        <a href="<?= Url::to('/cms') ?>" class="logo logo-small">
             <img src="/web/admin/img/logo-small.png" alt="Logo" width="30" height="30">
         </a>
     </div>
