@@ -6,6 +6,7 @@
 
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
+use yii\captcha\Captcha;
 
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
@@ -71,30 +72,34 @@ $this->params['meta_keywords'] = $contactModel->meta_keywords ?? '';
                             <div class="form-group">
                                 <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
                             </div>
+                            <div class="form-group">
+                                <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
+                                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-9">{input}</div></div>',
+                                ]) ?>
+                                </div>
+                                <?= Html::submitButton('SEND MESSAGE', [
+                                    'class' => 'btn-sm btn-lg btn-block background-dark text-white text-center text-uppercase rounded-0 padding-15px',
+                                    'id' => 'contact-submit-btn'
+                                ]) ?>
 
-                            <?= Html::submitButton('SEND MESSAGE', [
-                                'class' => 'btn-sm btn-lg btn-block background-dark text-white text-center text-uppercase rounded-0 padding-15px',
-                                'id' => 'contact-submit-btn'
-                            ]) ?>
+                                <?php ActiveForm::end(); ?>
 
-                            <?php ActiveForm::end(); ?>
+                                <!-- Success Message -->
+                                <div id="success-message" class="alert alert-success mt-3" style="display: none;">
+                                    Thank you for contacting us. We will respond to you as soon as possible.
+                                </div>
 
-                            <!-- Success Message -->
-                            <div id="success-message" class="alert alert-success mt-3" style="display: none;">
-                                Thank you for contacting us. We will respond to you as soon as possible.
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<?php
-$ajaxUrl = \yii\helpers\Url::to(['site/contact']); // Ensure this points to the correct action
-$js = <<<JS
+    <?php
+    $ajaxUrl = \yii\helpers\Url::to(['site/contact']); // Ensure this points to the correct action
+    $js = <<<JS
     $(document).on('click', '#contact-submit-btn', function(e) {
         e.preventDefault(); // Prevent form submission
         
@@ -130,5 +135,5 @@ $js = <<<JS
         return false;
     });
 JS;
-$this->registerJs($js);
-?>
+    $this->registerJs($js);
+    ?>
